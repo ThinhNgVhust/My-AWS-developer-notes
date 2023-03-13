@@ -41,3 +41,6 @@
     > Goes over private network
     > Takes at least a month to establish
 > Site to site VPN & DX cannot access VPC endpoints
+
+
+> VPC Flow Logs: Capture informatin about IP traffic going into your intefaces
