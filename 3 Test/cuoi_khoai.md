@@ -341,12 +341,47 @@ Which of the below options is **NOT** feasible for **cross-account access of S3 
 
 - When you attempt to do this, **the last step fails with an authorization issue. What is the most likely issue?**
     - **The IAM permissions are wrong for the CodeBuild service**: Accessis controlled through IAM
-    
+
 -----------------------------------------------------------------------------------------------------------------------
+31. 
+- An IT company uses AWS CloudFormation templates to provision their AWS infrastructure for Amazon EC2, Amazon VPC, and Amazon S3 resources. Using cross-stack referencing, a developer creates a stack called NetworkStack which will export the subnetId that can be used when creating EC2 instances in another stack.
+
+- To use the exported value in another stack, which of the following functions must be used?
+
+    - **!ImportValue**
+
 -----------------------------------------------------------------------------------------------------------------------
+32. 
+- A developer at a university is encrypting a large XML payload transferred over the network using AWS KMS and wants to test the application before going to production.
+
+- What is the maximum data size supported by AWS KMS?
+    - **4 KB**
+
 -----------------------------------------------------------------------------------------------------------------------
+33. 
+- The development team at an IT company has configured an Application Load Balancer (ALB) with a Lambda function A as the target but the Lambda function A is not able to process any request from the ALB. Upon investigation, the team finds that there is another Lambda function B in the AWS account that is exceeding the concurrency limits.
+
+- How can the development team address this issue?
+    -**Set up reserved concurrency for the Lambda function B so that it throttles if it goes above a certain concurrency limit**
 -----------------------------------------------------------------------------------------------------------------------
+34. 
+- Your company **leverages Amazon CloudFront** to provide content via the internet to customers with low latency. Aside from latency, security is another concern and you are looking for help in enforcing end-to-end connections using HTTPS so that content is protected.
+
+- Which of the following options is available for HTTPS in AWS CloudFront?
+    - **Between clients and CloudFront as well as between CloudFront and backend**
+
 -----------------------------------------------------------------------------------------------------------------------
+35. 
+- You are planning to build a fleet of EBS-optimized EC2 instances to handle the load of your new application. Due to security compliance, your organization wants any secret strings used in the application to be encrypted to prevent exposing values as clear text.
+
+- The solution requires that decryption events be audited and API calls to be simple. How can this be achieved? (select two)
+    - **Store the secret as SecureString in SSM Parameter Store**
+    - **Audit using CloudTrail**
+     - **~~Encrypt first with KMS then store in SSM Parameter store~~** - This could work but will require two API calls to get the decrypted value instead of one. So this is not the right option.
+
+    - **~~Store the secret as PlainText in SSM Parameter Store~~** - Plaintext parameters are not secure and shouldn't be used to store secrets.
+
+    - **~~Audit using SSM Audit Trail~~** - This is a made-up option and has been added as a distractor.
 -----------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------
