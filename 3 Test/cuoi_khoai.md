@@ -190,3 +190,163 @@ Explanation
     - ~~Amazon EC2 On-Demand Instances~~ -> Same but more cost
     - ~~On-premise EC2 instance~~ -> maintan the physical, not moving on the cloud
     - **Amazon EC2 Reserved Instances**
+
+-----------------------------------------------------------------------------------------------------------------------
+
+14. Q14
+
+- You have migrated an on-premise SQL Server database to an Amazon Relational Database Service (RDS) database attached to **a VPC inside a private subnet**. Also, the related Java application, hosted on-premise, has been moved to an Amazon Lambda function.
+
+- Which of the following should you implement to connect AWS Lambda function to its RDS instance?
+
+    - **Configure Lambda to connect to VPC with private subnet and Security Group needed to access RDS** (Lambda in VPC)
+    - ~~Use Lambda layers to connect to the internet and RDS separately -~~ -> layers: storing code, depedencies
+    - ~~Configure lambda to connect to the public subnet that will give internet access and use the Security Group to access RDS inside the private subnet~~ -> 
+    - ~~Use Environment variables to pass in the RDS connection string~~ -> not possible with just environment variables.
+-----------------------------------------------------------------------------------------------------------------------
+
+15. Q15
+- The development team at an e-commerce company is preparing for the upcoming Thanksgiving sale. The product manager wants the development team to implement appropriate caching strategy on Amazon ElastiCache to withstand traffic spikes on the website during the sale. **A key requirement is to facilitate consistent updates to the product prices and product description, so that the cache never goes out of sync with the backend.**
+
+- As a Developer Associate, which of the following solutions would you recommend for the given use-case?
+    - **Use a caching strategy to write to the backend first and then invalidate the cache** -> Write through
+    - ~~Use a caching strategy to update the cache and the backend at the same time~~ -> not atomic
+    - ~~Use a caching strategy to write to the backend first and wait for the cache to expire via TTL~~ -> out of sync
+    - ~~Use a caching strategy to write to the cache directly and sync the backend at a later time ~~ -> maynot consitances
+-----------------------------------------------------------------------------------------------------------------------
+16. Q16
+- A data analytics company wants to use clickstream data for **Machine Learning tasks, develop algorithms, and create visualizations and dashboards to support the business stakeholders**. Each of these business units works independently and would need real-time access to this clickstream data for their applications.
+
+- As a Developer Associate, which of the following AWS services would you recommend such that it provides a highly available and fault-tolerant solution to capture the clickstream events from the source and then provide a simultaneous feed of the data stream to the consumer applications?
+    - **AWS Kinesis Data Streams**
+    - ~~AWS Kinesis Data Firehose~~ -> near realtime, for streaming data into data store
+    - ~~AWS Kinesis Data Analytics~~ -> Data Analytics is used to build SQL queries and sophisticated Java applications, therefore this option is incorrect.
+    - ~~Amazon SQS ~~ -> Async
+-----------------------------------------------------------------------------------------------------------------------
+17. Q17
+- A popular mobile app retrieves data from an AWS DynamoDB table that was provisioned with read-capacity units (RCU’s) that are evenly shared across four partitions. One of those partitions is receiving more traffic than the other partitions, causing hot partition issues.
+
+- What technology will allow you to reduce the read traffic on your AWS DynamoDB table with minimal effort?
+    - **DynamoDB DAX** -> similar with caching (API Call -> DAX -> DynamoDB)　delivers up to a 10x performance improvement: from milliseconds to microseconds: even at millions of requests per second.
+    - ~~DynamoDB Streams~~ -> A stream record contains information about a data modification to a single item in a DynamoDB table. 
+    - ~~ElastiCache~~ -> Fast but must change the code
+    - ~~More partitions~~ - This option has been added as a distractor as DynamoDB handles that for you automatically.
+-----------------------------------------------------------------------------------------------------------------------
+18. Q18
+- A cyber forensics application, running behind an ALB, wants to analyze patterns for the client IPs.
+
+- Which of the following headers can be used for this requirement?
+    - **X-Forwarded-For**
+    - ~~X-Forwarded-Proto~~
+    - ~~X-Forwarded-Port~~
+    - ~~X-Forwarded-IP~~
+
+-----------------------------------------------------------------------------------------------------------------------
+19. Q19
+- Your **web application front end consists of 5 EC2 instances behind an Application Load Balancer**. You have configured your web application to capture the IP address of the client making requests. When viewing the data captured you notice that every IP address being captured is the same, which also happens to be the IP address of the Application Load Balancer.
+
+- What should you do to identify the true IP address of the client?
+    - **Look into the X-Forwarded-For header in the backend**
+
+-----------------------------------------------------------------------------------------------------------------------
+20. Q20
+- You are working for a shipping company that is **automating the creation of ECS clusters with an Auto Scaling Group using an AWS CloudFormation template** that accepts cluster name as its parameters. Initially, you launch the template with input value 'MainCluster', which deployed five instances across two availability zones. The second time, you launch the template with an input value 'SecondCluster'. However, the instances created in the second run were also launched in 'MainCluster' even after specifying a different cluster name.
+
+- What is the root cause of this issue?
+    - **The cluster name Parameter has not been updated in the file /etc/ecs/ecs.config during bootstrap** - In the ecs.config file you have to configure the parameter ECS_CLUSTER='your_cluster_name' to register the container instance with a cluster named 'your_cluster_name'.
+    - ~~The EC2 instance is missing IAM permissions to join the other clusters ~~ -> 
+    - ~~The ECS agent Docker image must be re-built to connect to the other clusters~~ -> No issue with ECS agent
+    - ~~The security groups on the EC2 instance are pointing to the wrong ECS cluster ~~ -> 
+-----------------------------------------------------------------------------------------------------------------------
+21. Q21
+> A company that specializes in cloud communications platform as a service allows software developers to programmatically use their services to **send and receive text messages**. The initial platform did not have a scalable architecture as all components were hosted on one server and **should be redesigned for high availability and scalability.**
+
+- Which of the following options can be used to implement the new architecture? (select two)
+    - **ALB + ECS** ->HA
+    - **API Gateway + Lambda** -> 
+    - ~~SES + S3~~ - The combination of these services only provide email and object storage services.
+    - ~~CloudWatch + CloudFront~~ ->  The combination of these services only provide monitoring and fast content delivery network (CDN) services.
+    - ~~EBS + RDS~~ -> Database and storage service
+-----------------------------------------------------------------------------------------------------------------------
+22. Q22
+- A development team has created AWS CloudFormation templates that are reusable by taking advantage of input parameters to name resources based on client names.
+
+- You would like to **save your templates on the cloud**, which storage option should you choose?
+    - **S3**
+    - ~~EBS~~ -> "network USB", EBS cannot be used for selecting a stack template for CloudFormation
+    - ~~EFS ~~ -> 
+    - ~~ECR~~ -> 
+23. 
+- You are a DynamoDB developer for an aerospace company that requires you to write 6 objects per second of 4.5KB in size each.
+
+- What write capacity unit is needed for your project?
+    - WCU = 6 * roundup(4.5/1) = 30
+    - RCU = #object*roundup(kb/4)
+    - 30
+
+-----------------------------------------------------------------------------------------------------------------------
+24. 
+- A retail company manages its IT infrastructure on AWS Cloud via **Elastic Beanstalk**. The development team at the company is planning to deploy the next version with **MINIMUM application downtime and the ability to rollback quickly in case deployment goes wrong**.
+
+- As a Developer Associate, which of the following options would you recommend to the development team?
+    - **Deploy the new version to a separate environment via Blue/Green Deployment, and then swap Route 53 records of the two environments to redirect traffic to the new version** -> 
+    - ~~Rolling~~ -> Quấn chiếu
+    - ~~All at one~~ -> donwtime
+    - ~~Rolling with additional batch~~ -> spin up new instances to move the batch
+    - ~~Taffic Spliting~~ 
+    - ~~Immutable~~ -> create new tmp ASG and then swaps all new instances when everything OK
+-----------------------------------------------------------------------------------------------------------------------
+25. Q25
+- You have a **Java-based application running on EC2 instances loaded with AWS CodeDeploy agents**. You are considering different options for deployment, one is the flexibility that allows for incremental deployment of your new application versions and replaces existing versions in the EC2 instances. The other option is a strategy in which an Auto Scaling group is used to perform a deployment.
+
+- Which of the following options will allow you to deploy in this manner? (**Select two**)
+    - **In-place Deployment** 
+    - **Blue/green Deployment**
+    - ~~Cattle Deployment~~ - This is a good option if you have cattle in a farm
+    - ~~Warm Standby Deployment~~ - This is not a valid CodeDeploy deployment option.
+    - ~~Pilot Light Deployment~~ - This is not a valid CodeDeploy deployment option. 
+
+-----------------------------------------------------------------------------------------------------------------------
+26. 
+- The development team at an IT company uses **CloudFormation to manage its AWS infrastructure**. The team has created **a network stack containing a VPC with subnets and a web application stack with EC2 instances and an RDS instance.** The team wants to reference the VPC created in the network stack into its web application stack.
+
+- As a Developer Associate, which of the following solutions would you recommend for the given use-case?
+    - **Create a cross-stack reference and use the Export output field to flag the value of VPC from the network stack. Then use Fn::ImportValue intrinsic function to import the value of VPC into the web application stack** -> 
+- Cross stack: for stack reference
+- Nested Stack:  re-used component (Web stack (ec2 stack),(RDS stack) )
+----------------------------------------------------------------------------------------------------------------------
+
+27. 
+- A startup manages its Cloud resources with Elastic Beanstalk. The environment consists of few Amazon EC2 instances, an Auto Scaling Group (ASG), and an Elastic Load Balancer. Even after the Load Balancer marked an EC2 instance as unhealthy, the ASG has not replaced it with a healthy instance.
+
+- As a Developer, suggest the necessary configurations to automate the replacement of unhealthy instance.
+    - **The health check type of your instance's Auto Scaling group, must be changed from EC2 to ELB by using a configuration file** - By default, the health check configuration of your Auto Scaling group is set as an EC2 type that performs a status check of EC2 instances. To automate the replacement of unhealthy EC2 instances, you must change the health check type of your instance's Auto Scaling group from EC2 to ELB by using a configuration file.
+-----------------------------------------------------------------------------------------------------------------------
+28. 
+- You are working with a t2.small instance bastion host that has the AWS CLI installed to help manage all the AWS services installed on it. You would like to know the security group and the instance id of the current instance.
+
+- Which of the following will help you fetch the needed information?
+    - **Query the metadata at http://169.254.169.254/latest/meta-data**
+
+-----------------------------------------------------------------------------------------------------------------------
+29. 
+- A large firm stores its static data assets on Amazon S3 buckets. Each service line of the firm has its own AWS account. For a business use case, the Finance department needs to give access to their S3 bucket's data to the Human Resources department.
+
+Which of the below options is **NOT** feasible for **cross-account access of S3 bucket objects?**
+    - **Use IAM roles and resource-based policies delegate access across accounts within different partitions via programmatic access only **
+
+-----------------------------------------------------------------------------------------------------------------------
+30. 
+- Your e-commerce company needs to improve its software delivery process and is moving away from the waterfall methodology. **You decided that every application should be built using the best CI/CD practices and every application should be packaged and deployed as a Docker container**. The Docker images should be stored in ECR and pushed with AWS CodePipeline and AWS CodeBuild.
+
+- When you attempt to do this, **the last step fails with an authorization issue. What is the most likely issue?**
+    - **The IAM permissions are wrong for the CodeBuild service**: Accessis controlled through IAM
+    
+-----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
