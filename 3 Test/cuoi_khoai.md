@@ -383,5 +383,160 @@ Which of the below options is **NOT** feasible for **cross-account access of S3 
 
     - **~~Audit using SSM Audit Trail~~** - This is a made-up option and has been added as a distractor.
 -----------------------------------------------------------------------------------------------------------------------
+36. 
+- You work as a developer doing contract work for the government on AWS gov cloud. Your **applications use Amazon Simple Queue Service (SQS)** for its message queue service. Due to recent hacking attempts, security measures have become stricter and **require you to store data in encrypted queues**.
+
+- Which of the following steps can you take to meet your requirements **without making changes to the existing code**?
+    - **Enable SQS KMS encryption** -> 
+    - ~~Use the SSL endpoint~~ -> When using SSL, the data is encrypted during transit, but the data needs to be encrypted at rest as well
+    - ~~Use Client-side encryption~~ -> For additional security, you can build your application to encrypt messages before they are placed in a message queue but will **require a code change**, so this option is incorrect.
+    - **~~Use Secrets Manager~~**
 -----------------------------------------------------------------------------------------------------------------------
+37. 
+- A security company is requiring all developers to perform **server-side encryption** with **customer-provided encryption keys when performing operations in AWS S3**. Developers should write software with **C# using the AWS SDK and implement the requirement in the PUT, GET, Head, and Copy operations**.
+
+- Which of the following encryption methods meets this requirement?
+    - **SSE-C** Sever Side Encryption - Custom Key
+    - ~~SSE-S3~~
+    - ~~SSE-KMS~~
+    - **~~Client-Side Encryption~~**
 -----------------------------------------------------------------------------------------------------------------------
+38. 
+- As an AWS certified developer associate, you are working on an AWS CloudFormation template that will create resources for a company's cloud infrastructure. Your template is composed of three stacks which are Stack-A, Stack-B, and Stack-C. Stack-A will provision a VPC, a security group, and subnets for public web applications that will be referenced in Stack-B and Stack-C.
+
+- After running the stacks you decide to delete them, in which order should you do it?
+    - Either Stack B or Stack C, and then Stack A
+-----------------------------------------------------------------------------------------------------------------------
+39. 
+- You are a developer handling a deployment service that automates application deployments to Amazon EC2 instances. Most of the deployments consist of code, but sometimes web and configuration files. One of your deployments failed and was rolled back by AWS CodeDeploy to the last known good application revision.
+
+- During rollback which of the following instances did AWS CodeDeploy deploy first to?
+    - **To the failed instances**: AWS CodeDeploy rolls back deployments by redeploying a previously deployed revision of an application as a new deployment on the failed instances.
+    - ~~To the non-failed instances~~ -> Nothing happens to the non-failed instances if any.
+    - ~~To new instances~~ -> Nothing is deployed to the new instances.
+    - ~~You **cannot** rollback a CodeDeploy deployment~~ - You can rollback a CodeDeploy deployment. This option is incorrect.
+-----------------------------------------------------------------------------------------------------------------------
+40. 
+- An organization with online transaction processing (OLTP) workloads have successfully moved to DynamoDB after having many issues with traditional database systems. However, a few months into production, **DynamoDB tables are consistently recording high latency.**
+
+- As a Developer Associate, which of the following would you suggest to reduce the latency? (Select two)
+    - ~~Use DynamoDB Accelerator (DAX) for businesses with heavy write-only workloads~~ -> For **traffic read-heavy**
+    - **Consider using Global tables if your application is accessed by globally distributed users** -> If you have globally dispersed users, consider using global tables. With global tables, you can specify the AWS Regions where you want the table to be available. This can significantly reduce latency for your users. So, **reducing the distance between the client and the DynamoDB endpoint** is an important performance fix to be considered.
+    - ~~Increase the request timeout settings, so the client gets enough time to complete the requests, thereby reducing retries on the system~~ - This statement is incorrect. The right way is to reduce the request timeout settings. This causes the client to abandon high latency requests after the specified time period and then send a second request that usually completes much faster than the first.
+    - **Reduce connection pooling, which keeps the connections alive even when user requests are not present, thereby, blocking the services** - This is not correct. When you're not making requests, consider having the client send dummy traffic to a DynamoDB table. Alternatively, you can reuse client connections or use connection pooling. All of these techniques keep internal caches warm, which helps keep latency low.
+    - **Use eventually consistent reads in place of strongly consistent reads whenever possible** -> If your application doesn't require strongly consistent reads, consider using eventually consistent reads. Eventually consistent reads are cheaper and are less likely to experience high latency. For more information
+-----------------------------------------------------------------------------------------------------------------------
+41. 
+- You are getting ready for an event to show off your Alexa skill written in JavaScript. As you are testing your voice activation commands you find that some intents are not invoking as they should and you are struggling to figure out what is happening. You included the following code ```console.log(JSON.stringify(this.event))``` in hopes of getting more details about the request to your Alexa skill.
+
+- You would like the logs stored in an Amazon Simple Storage Service (S3) bucket named ```MyAlexaLog```. How do you achieve this?
+    - **Use CloudWatch integration feature with S3** ->You can export log data from your CloudWatch log groups to an Amazon S3 bucket and use this data in custom processing and analysis, or to load onto other systems.
+-----------------------------------------------------------------------------------------------------------------------
+42. 
+- A developer from your team has configured the load balancer to **route traffic equally** between instances or across Availability Zones. However, Elastic Load Balancing (ELB) routes more traffic to one instance or Availability Zone than the others.
+
+- Why is this happening and how can it be fixed? (Select two)
+    - **Instances of a specific capacity type aren’t equally distributed across Availability Zones** -> A Classic Load Balancer with HTTP or HTTPS listeners might route more traffic to higher-capacity instance types
+    - **Sticky Session is enable**
+-----------------------------------------------------------------------------------------------------------------------
+43. 
+- An e-commerce company has a fleet of EC2 based web servers running into very high CPU utilization issues. The development team has determined that **serving secure traffic via HTTPS is a major contributor to the high CPU load**.
+
+- Which of the following steps can take the high CPU load off the web servers? (Select two)
+    - **Configure an SSL/TLS certificate on an Application Load Balancer via AWS Certificate Manager (ACM)**
+    - **Create an HTTPS listener on the Application Load Balancer with SSL termination** -> Encrypt in ELB side, in-flight encryption with ELB <--> client, ELB<->EC2 is http (faster)
+    - ~~Create an HTTPS listener on the Application Load Balancer with SSL pass-through~~ - If you use an HTTPS listener with SSL pass-through, then the EC2 instances would continue to be under heavy CPU load as they would still need to decrypt the secure traffic at the instance level.
+    - ~~"Create an HTTP listener on the Application Load Balancer with SSL termination"~~ & ~~"Create an HTTP listener on the Application Load Balancer with SSL pass-through"~~ -> You cannot have an HTTP listener for an Application Load Balancer to support SSL termination or SSL pass-through.
+-----------------------------------------------------------------------------------------------------------------------
+44. 
+- A .NET developer team works with many ASP.NET web applications that use EC2 instances to host them on IIS. The deployment process needs to be configured so that multiple versions of the application can run in AWS Elastic Beanstalk. **One version would be used for development, testing, and another version for load testing**.
+
+- Which of the following methods do you recommend?
+    - **Define a dev environment with a single instance and a 'load test' environment that has settings close to production environment**
+    
+-----------------------------------------------------------------------------------------------------------------------
+45. 
+- An Auto Scaling group has a maximum capacity of 3, a current capacity of 2, and a scaling policy that adds 3 instances.
+
+- When executing this scaling policy, what is the expected outcome?
+    - maximum: 3 , current: 2, add more 2 in policy but it can add only 1
+
+-----------------------------------------------------------------------------------------------------------------------
+46. 
+- The development team at an e-commerce company wants to run a **serverless** data store service on two docker containers using **shared memory**.
+
+- Which of the following ECS configurations can be used to facilitate this use-case?
+    - Serverless -> Fargate
+    - ECS -> EC2 Launch Type
+    - Share resouce -> same task
+    - Share data volumn -> same task
+- 
+    - **Put the two containers into a single task definition using a Fargate Launch Type** 
+    - ~~Put the two containers into two separate task definitions using a Fargate Launch Type~~ - Severless but not shared memory
+    - ~~Put the two containers into two separate task definitions using an EC2 Launch Type~~ -> Not serverless
+    - ~~Put the two containers into a single task definition using an EC2 Launch Type~~ -> Not serverless
+-----------------------------------------------------------------------------------------------------------------------
+47. 
+- As a site reliability engineer, you are responsible for improving the company’s deployment by scaling and automating applications. As new application versions are ready for production you ensure that the application gets deployed to different sets of EC2 instances at different times allowing for a smooth transition.
+
+- Using AWS CodeDeploy, which of the following options will allow you to do this?
+    - **CodeDeploy Deployment Groups** -> 
+-----------------------------------------------------------------------------------------------------------------------
+48. 
+- A Developer at a company is working on a CloudFormation template to set up resources. Resources will be defined using code and provisioned based on certain conditions.
+
+- Which section of a CloudFormation template does not allow for conditions?
+    - **Parameters** ->Parameters enable you to input custom values to your CloudFormation template each time you create or update a stack. Please see this note to understand how to define a parameter in a template:
+
+-----------------------------------------------------------------------------------------------------------------------
+49. 
+- A photo-sharing application manages its EC2 server fleet running behind an Application Load Balancer and the traffic is fronted by a CloudFront distribution. The development team wants to **decouple the user authentication** process for the application so that the application servers can just focus on the business logic.
+
+- As a Developer Associate, which of the following solutions would you recommend to address this use-case?
+    - **Use Cognito Authentication via Cognito User Pools for your Application Load Balancer** -> Authen in ALB, offload workload for Application in backend, backend dont need logic code for authen.
+    
+-----------------------------------------------------------------------------------------------------------------------
+50. 
+- You were assigned to a project that requires the use of the AWS CLI to build a project with AWS CodeBuild. Your project's root directory includes the **buildspec.yml** file to run build commands and would like your build artifacts to be automatically **encrypted** at the end.
+
+- How should you configure CodeBuild to accomplish this?
+    - **KMS**
+-----------------------------------------------------------------------------------------------------------------------
+51. 
+- Your company has embraced cloud-native microservices architectures. New applications must be dockerized and stored in a registry service offered by AWS. **The architecture should support dynamic port mapping and support multiple tasks from a single service on the same container instance.** All services should run on the same EC2 instance.
+
+- Which of the following options offers the best-fit solution for the given use-case?
+    - **ALP + ECS or Fargate**
+
+-----------------------------------------------------------------------------------------------------------------------
+52. 
+- A company has AWS Lambda functions where each is invoked by other AWS services such as Amazon Kinesis Data Firehose, Amazon API Gateway, Amazon Simple Storage Service, or Amazon CloudWatch Events. What these Lambda functions have in common is that they process **heavy workloads** such as big data analysis, large file processing, and statistical computations.
+
+- What should you do to improve the performance of your AWS Lambda functions without changing your code?
+    - **Increase RAM** assigned for Lambda
+-----------------------------------------------------------------------------------------------------------------------
+53. 
+- A junior developer working on ECS instances terminated a container instance in Amazon Elastic Container Service (Amazon ECS) as per instructions from the team lead. But the container instance continues to appear as a resource in the ECS cluster.
+
+- As a Developer Associate, which of the following solutions would you recommend to fix this behavior?
+    - ??????????????
+-----------------------------------------------------------------------------------------------------------------------
+54. 
+- SNS + SQS
+-----------------------------------------------------------------------------------------------------------------------
+55. 
+
+-----------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------
+60. 
+- You team maintains a public API Gateway that is accessed by clients from another domain. Usage has been consistent for the last few months but recently it has more than doubled. As a result, your costs have gone up and would like to **prevent other unauthorized domains from accessing your API**.
+
+- Which of the following actions should you take?
+    - Disable CORS
+-----------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------
+
