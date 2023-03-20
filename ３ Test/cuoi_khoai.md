@@ -534,9 +534,19 @@ Which of the below options is **NOT** feasible for **cross-account access of S3 
 
 - Which of the following actions should you take?
     - Disable CORS
+    - 
 -----------------------------------------------------------------------------------------------------------------------
+65. 
+- A development team at a social media company uses AWS Lambda for its serverless stack on AWS Cloud. For a new deployment, the Team Lead wants to send only a certain portion of the traffic to the new Lambda version. In case the deployment goes wrong, the solution should also support the ability to roll back to a previous version of the Lambda function, with MIMINUM downtime for the application.
 
------------------------------------------------------------------------------------------------------------------------
+- As a Developer Associate, which of the following options would you recommend to address this use-case?
+
+    - Set up the application to use an alias that points to the current version. Deploy the new version of the code and configure the alias to send 10% of the users to this new version. If the deployment goes wrong, reset the alias to point all traffic to the current version
+
+    -~~Set up the application to use an alias that points to the current version. Deploy the new version of the code and configure alias to send all users to this new version. If the deployment goes wrong, reset the alias to point to the current version ~~ -> send all request traffic to new version, doesnt meet require
+    - ~~Set up the application to directly deploy the new Lambda version. If the deployment goes wrong, reset the application back to the current version using the version number in the ARN~~ -> send all traffic to new version -> wrong
+    - ~~Set up the application to have multiple alias of the Lambda function. Deploy the new version of the code. Configure a new alias that points to the current alias of the Lambda function for handling 10% of the traffic. If the deployment goes wrong, reset the new alias to point all traffic to the most recent working alias of the Lambda function~~ -> **Aliases cannot reference aliases**
+ -----------------------------------------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------------------------------------
 
