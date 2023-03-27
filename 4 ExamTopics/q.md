@@ -47,25 +47,54 @@ Which combination of slops should the developer take to meet these requirements?
 > **Activate real-time logs on the CloudFront distribution. Create a stream in Amazon Kinesis Data Streams.** 
 > **Configure Amazon Kinesis Data Streams to deliver logs to Amazon OpenSearch Service (Amazon Elasticsearch Service). Create a dashboard in OpenSearch Dashboards (Kibana).**
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+11. A developer creates a customer managed key for multiple AWS users to encrypt data in Amazon S3. The developer configures Amazon Simple Notification
+Service (Amazon SNS) to publish a message if key deletion is scheduled. **The developer needs to preserve any SNS messages that cannot be delivered so that those messages can be reprocessed.**
+Which AWS service or feature should the developer use to meet this requirement?
+> **SQS**
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+12. A developer needs to deploy an application to AWS Elastic Beanstalk for a company. The application consists of a **single Docker image**. The company's automated continuous integration and continuous delivery (CI/CD) process builds the Docker image and pushes the image to a public Docker registry.
+How should the developer deploy the application to Elastic Beanstalk?
+> **Create a ``docker-compose.yml`` file. Use the Elastic Beanstalk CLI to deploy the application.**
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+13. A company is using AWS CodeDeploy for all production deployments. A developer has an Amazon Elastic Container Service (Amazon ECS) application that uses the CodeDeployDefault.ECSAIIAtOnce configuration. The developer needs to update the production environment in increments of 10% until the entire production environment is updated.
+Which CodeDeploy configuration should the developer use to meet these requirements?
+> **CodeDeployDefault.``ECSLinear10PercentEvery3Minutes``**
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+14. A company is using AWS Elastic Beanstalk to deploy a three-tier application. The application uses an Amazon RDS DB instance as the database tier. The company wants to decouple the DB instance from the Elastic Beanstalk environment.
+Which combination of steps should a developer lake to meet this requirement? (Choose two.)
+>**Create a new DB instance from a snapshot of the previous DB instance.**
+>**Create a new Elastic Beanstalk environment that connects to the DB instance.**
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+15. A company has point-of-sale devices across thousands of retail shops that **synchronize sales transactions with a centralized system.** The system includes an
+Amazon API Gateway API that exposes an AWS Lambda function. The Lambda function processes the transactions and stores the transactions in Amazon RDS for MySQL.**The number of transactions increases rapidly during the day and is near zero at night.**
+How can a developer increase the elasticity of the system MOST cost-effectively?
+> **~~Migrate from Amazon RDS to Amazon Aurora MySQL. Use an Aurora Auto Scaling policy to scale road replicas based on CPU consumption.~~** -> For read
+> **~~Migrate from Amazon RDS to Amazon Aurora MySQL. Use an Aurora Auto Scaling policy to scale read replicas based on the number of database connections.~~** -> For read
+> **~~Create an Amazon Simple Queue Service (Amazon SQS) queue. Publish transactions to the queue. Set the queue to invoke the Lambda function. Turn on enhanced fanout for the Lambda function.~~** -> Enhanced fanout: for kinesis
+> **Create an Amazon Simple Queue Service (Amazon SQS) queue. Publish transactions to the queue. Set the queue to invoke the Lambda function. Set the reserved concurrency of the Lambda function to be less than the number of database connections.**
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+16. A developer is writing an AWS Lambda function. The Lambda function needs to access items that are stored in an Amazon DynamoDB table.
+What is the MOST secure way to configure this access for the Lambda function?
+> **Create an ``IAM policy that allows access to the DynamoDB table``. Attach this policy to the Lambda function's IAM role**
+> **~~Add a resource-based policy to the DynamoDB table to allow access from the Lambda function's IAM role.~~** -> DynamoDB doesnt support
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+17. A developer is implementing user authentication and authorization for a web application that is hosted on an Amazon EC2 instance. The developer needs to ensure that the user credentials are encrypted and secure when they are stored and transmitted.
+Which solution will meet these requirements?
+> **Use Amazon Cognito to configure a user pool. Use the Amazon Cognito API to authenticate and authorize the users. Most Voted**
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+18. A company that has multiple offices uses an Amazon DynamoDB table to store employee payroll information. Item attributes consist of ``employee names``, ``office identifiers``, and ``cumulative daily hours worked``. **The most frequently used query extracts a report of an alphabetical subset of employees for a specific office.**
+Which design of the DynamoDB table primary key will have the MINIMUM performance impact?
+> **Partition key on the office identifier and sort key on the employee name**
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+19. A company hosts a microservices application that uses **Amazon API Gateway**. AWS **Lambda**, Amazon Simple Queue Service **(Amazon SQS)**, and Amazon **DynamoDB**. One of the Lambda functions adds messages to an SQS FIFO queue.
+When a developer checks the application logs, the developer **finds a few duplicated items in a DynamoDB table**. The items were inserted by another polling function that processes messages from the queue.
+What is the MOST likely cause of this issue?
+> **The polling function timeout is greater than the queue visibility timeout.**
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+20. A development team has been using a builder server that is hosted on an Amazon EC2 instance to perform builds and deployments for the last 3 months. The
+EC2 instance's instance profile uses an IAM role that contains the Administrator Access managed policy. The development team must replace that policy with a policy that provides only the required permissions.
+**What is the FASTEST way to create a custom 1AM policy for the EC2 instance to meet this requirement?**
+> **Create a new IAM policy that includes all actions that AWS CloudTrail recorded for the IAM role in the last 3 months.**
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
