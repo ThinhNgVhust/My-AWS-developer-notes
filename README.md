@@ -1,4 +1,5 @@
 # My-AWS-developer-notes
+```javascript
  $("#ajaxButton").click(function () {
             $.ajax({
                 url: '/YourController/YourAction', // Không cần URL hoàn chỉnh
@@ -11,3 +12,4 @@
                 }
             });
         });
+```
