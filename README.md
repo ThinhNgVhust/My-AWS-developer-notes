@@ -85,7 +85,7 @@ $(document).ready(function () {
             <th>
                 @Html.DisplayNameFor(model => model.Movie[0].Price)
             </th>
-            <th></th>
+            <th>Gener</th>
         </tr>
     </thead>
     <tbody>
@@ -112,7 +112,14 @@ $(document).ready(function () {
                         @Html.HiddenFor(modelItem => Model.Movie[i].Price)
             </td>
 
-
+                   <td>
+                        <select name="Movie[@i].Genre" asp-for="@Model.Movie[i].Genre">
+                            @foreach (var genre in Model.AvailableGenres)
+                            {
+                                <option value="@genre">@genre</option>
+                            }
+                        </select>
+                   </td>
                     <td><button class="deleteBtn" type="button">Delete</button></td>
                     <td>
                         <button class="moveUpBtn" type="button">Move Up</button>
@@ -141,7 +148,7 @@ $(document).ready(function () {
             // Remove the row from the table
             row.remove();
 
-            // Update the remaining rows' indexes
+            // Update the remaining rows' indexes and hidden input names
             $(".table tbody tr").each(function (index, element) {
                 if (index >= rowIndex) {
                     var currentRow = $(element);
@@ -151,6 +158,9 @@ $(document).ready(function () {
                     currentRow.find('input[type="hidden"][name$=".ReleaseDate"]').attr("name", "Movie[" + index + "].ReleaseDate");
                     currentRow.find('input[type="hidden"][name$=".Genre"]').attr("name", "Movie[" + index + "].Genre");
                     currentRow.find('input[type="hidden"][name$=".Price"]').attr("name", "Movie[" + index + "].Price");
+
+                    // Update dropdown list names (if applicable)
+                    currentRow.find('select[name^="Movie["]').attr("name", "Movie[" + index + "].Genre");
                 }
             });
         });
