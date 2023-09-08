@@ -185,3 +185,61 @@ $(document).ready(function () {
 </script>
 
 ```
+```javascript
+function areObjectsEqual(obj1, obj2) {
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+
+    if (keys1.length !== keys2.length) {
+        return false;
+    }
+
+    for (const key of keys1) {
+        const value1 = obj1[key];
+        const value2 = obj2[key];
+
+        if (typeof value1 === 'object' && typeof value2 === 'object') {
+            // Nếu thuộc tính là đối tượng, thực hiện đệ quy để so sánh đối tượng con
+            if (!areObjectsEqual(value1, value2)) {
+                return false;
+            }
+        } else if (Array.isArray(value1) && Array.isArray(value2)) {
+            // Nếu thuộc tính là danh sách (array), so sánh danh sách này
+            if (!areArraysEqual(value1, value2)) {
+                return false;
+            }
+        } else if (value1 !== value2) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function areArraysEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) {
+        return false;
+    }
+
+    for (let i = 0; i < arr1.length; i++) {
+        if (typeof arr1[i] === 'object' && typeof arr2[i] === 'object') {
+            // Nếu phần tử là đối tượng, thực hiện đệ quy để so sánh đối tượng con
+            if (!areObjectsEqual(arr1[i], arr2[i])) {
+                return false;
+            }
+        } else if (arr1[i] !== arr2[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// Sử dụng hàm để so sánh hai đối tượng có danh sách
+const object1 = { name: 'John', addresses: [{ city: 'New York', zip: '10001' }] };
+const object2 = { name: 'John', addresses: [{ city: 'New York', zip: '10001' }] };
+const object3 = { name: 'Jane', addresses: [{ city: 'Los Angeles', zip: '90001' }] };
+
+console.log(areObjectsEqual(object1, object2)); // true
+console.log(areObjectsEqual(object1, object3)); // false
+```
